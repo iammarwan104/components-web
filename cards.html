@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: sans-serif;
+            /* border: 1px solid; */
+        }
+
+        .container-cards {
+            padding-top: 1rem;
+        }
+
+        .card {
+            position: relative;
+            border-radius: 6px;
+            width: 15rem;
+            margin: 1rem auto;
+            background-color: whitesmoke;
+            box-shadow: 3px 3px 6px .2px;
+            text-align: center;
+        }
+
+        .shape {
+            width: 100%;
+            height: 6rem;
+            background-color: orange;
+            margin-bottom: 5rem;
+        }
+
+        .img-card {
+            position: absolute;
+            top: 2.6rem;
+            transform: translateX(-50%);
+            width: 40%;
+            border-radius: 100%;
+            border: 4px solid orange;
+        }
+
+        .header {
+            /* margin: -1rem auto; */
+            font-size: 16px;
+        }
+
+        .caption-card {
+            padding: 1rem;
+            font-size: 14px;
+            text-align: justify;
+        }
+
+        @media screen and (min-width:720px) {
+            .container-cards {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+                padding: 2rem;
+            }
+
+            .card {
+                width: 14rem;
+                margin: 0;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container-cards">
+        <div class="card">
+            <div class="shape"></div>
+            <img class="img-card" src="img/author.png" alt="Foto Author">
+            <div class="text-card">
+                <h2 class="header">Marwan</h2>
+                <p class="caption-card">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit reiciendis
+                    assumenda iste facere eum.
+                </p>
+                <ul>
+                    <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-instagran"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-whatsapp"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="navbar.css">
+    <title>Navbar 1</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <a href="#">Flowers</a>
+            </div>
+
+            <ul>
+                <li><button class="open-menu"><i class="fa-solid fa-bars"></i></button></li>
+                <li><button class="close-menu"><i class="fa-solid fa-xmark"></i></button></li>
+            </ul>
+            <ul class="menus">
+                <li class="logo-in-menu">Flowers</li>
+                <li class="menu"><a href="index.html">Teratai</a></li>
+                <li class="menu"><a href="mawar.html">Mawar</a></li>
+                <li class="menu"><a href="melati.html">Melati</a></li>
+            </ul>
+            <a href="#" class="back-to-top">🔰</a>
+        </nav>
+
+        <main>
+            <button id="alert">ok</button>
+        </main>
+    </header>
+
+
+    <script>
+        const openMenu = document.querySelector(".open-menu")
+        const closeMenu = document.querySelector(".close-menu")
+        const showMenu = document.querySelector(".menus");
+        const menu = document.querySelector(".menu");
+        const showAlert = document.getElementById("alert");
+
+        // Menampilkan menu-menu 
+        openMenu.addEventListener("click", () => {
+            openMenu.style.display = "none";
+            closeMenu.style.display = "inline-block"
+            showMenu.style.height = "12.4rem";
+            showMenu.style.border = "2px solid orange";
+            showMenu.classList.add("menu-active");
+        })
+
+        // Menghilangkan menu-menu
+        closeMenu.addEventListener("click", () => {
+            closeMenu.style.display = "none";
+            openMenu.style.display = "inline-block"
+            showMenu.style.height = "0rem";
+            showMenu.style.border = "none";
+            showMenu.classList.remove("menu-active")
+        })
+
+        showAlert.addEventListener("click", () => {
+            alert("ok")
+        })
+
+    </script>
+</body>
+
+</html>

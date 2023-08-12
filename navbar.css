@@ -1,0 +1,179 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* navigation start */
+
+nav {
+    position: relative;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 1rem;
+    margin-bottom: 1.6rem;
+    background-color: orange;
+}
+
+nav .logo a {
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: white;
+}
+
+.menus {
+    position: absolute;
+    left: 0;
+    top: 5rem;
+    width: 100vw;
+    height: 0rem;
+    overflow: hidden;
+    background-color: rgb(0, 0, 0);
+    display: none;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.menu-active {
+    display: block;
+    transition: all .2s ease-in-out;
+}
+
+.logo-in-menu {
+    font-size: 20px;
+    font-weight: 600;
+    padding: 1rem 0 1rem 0;
+    color: orange;
+}
+
+nav ul {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+nav ul li {
+    list-style: none;
+
+}
+
+nav ul li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    transition: all .2s linear;
+    font-weight: bolder;
+    padding: 14px;
+    /* border: 1px solid; */
+}
+
+.menu a:hover {
+    color: black;
+}
+
+nav .open-menu {
+    border: none;
+    background-color: transparent;
+    font-size: 30px;
+}
+
+nav .close-menu {
+    display: none;
+    border: none;
+    background-color: transparent;
+    font-size: 30px;
+    margin-right: 6px;
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 1rem;
+    display: none;
+    font-size: 2rem;
+    rotate: 180deg;
+    text-decoration: none;
+}
+
+/* navigation end */
+
+
+/* main start */
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
+main button {
+    text-align: center;
+    border: 1px solid;
+    padding: 6px 2.4rem;
+    border-radius: 1rem;
+    border: none;
+    text-transform: lowercase;
+    font-weight: 600;
+    font-size: 1rem;
+    color: orange;
+    box-shadow: 1px 1px 8px orange;
+    transition: all .3s ease-in-out;
+}
+
+main button:hover {
+    box-shadow: 1px 1px 8px black;
+    color: black;
+}
+
+/* main end */
+
+@media screen and (min-width:720px) {
+    .logo-in-menu {
+        display: none;
+    }
+
+    nav .open-menu {
+        display: none;
+    }
+
+    nav .close-menu {
+        display: none;
+    }
+
+    .menus {
+        position: static;
+        display: inline-block;
+        border: 1px solid;
+        height: auto;
+        width: auto;
+        border: none;
+        background-color: transparent;
+    }
+
+    nav ul li a {
+        display: inline-block;
+    }
+
+    nav ul li a:hover {
+        color: white;
+    }
+
+    .menu {
+        display: inline;
+    }
+
+    article {
+        padding: 0 4rem;
+    }
+
+    aside {
+        padding: 0 4rem;
+    }
+}
+
+
+
+/* @media screen and (min-width:1024px) {} */

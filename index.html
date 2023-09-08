@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body style="height: 150vh;">
+    <form action="" method="post">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+        <button id="btn" type="submit">Login</button>
+        <input type="text" id="scoreA" value="0">
+        <button id="upPointScoreA">Up</button>
+        <button id="downPointScoreA">Down</button>
+        <input type="text" id="scoreB" value="0">
+        <button id="upPointScoreB">Up</button>
+        <button id="downPointScoreB">Down</button>
+        <button id="clearScore">Clear</button>
+    </form>
+    <script>
+        const scoreA = document.getElementById("scoreA");
+        const scoreB = document.getElementById("scoreB");
+        const upPointScoreA = document.getElementById("upPointScoreA");
+        const upPointScoreB = document.getElementById("upPointScoreB");
+        const downPointScoreA = document.getElementById("downPointScoreA");
+        const downPointScoreB = document.getElementById("downPointScoreB");
+        const clearScore = document.getElementById("clearScore");
+        upPointScoreA.addEventListener("click", (kopi) => {
+            kopi.preventDefault();
+            scoreA.value++;
+        })
+        upPointScoreB.addEventListener("click", (kopi) => {
+            kopi.preventDefault();
+            scoreB.value++;
+        })
+        downPointScoreB.addEventListener("click", (kopi) => {
+            kopi.preventDefault();
+            scoreB.value--;
+        })
+        downPointScoreA.addEventListener("click", (kopi) => {
+            kopi.preventDefault();
+            scoreA.value--;
+        })
+        clearScore.addEventListener("click", (kopi) => {
+            kopi.preventDefault();
+            scoreA.value = 0
+            scoreB.value = 0
+        })
+
+        window.addEventListener("scroll", () => {
+            console.log(window.screenY);
+        })
+
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const hopeEmail = "admin@gmail.com";
+        const hopePassword = "admin";
+        const btn = document.getElementById("btn");
+        btn.addEventListener("click", (kopi) => {
+            kopi.preventDefault();
+            if (email.value == hopeEmail && password.value == hopePassword) {
+                window.location.href = "homepage.html";
+            } else {
+                alert("Inputan Anda Salah");
+            }
+        })
+    </script>
+</body>
+
+</html>

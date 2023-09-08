@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+
+<body>
+    <h1>SELAMAT DATANG DI WELCOME</h1>
+    <button id="back">Back</button>
+    <div id="container" style="border: 1px solid;">
+    </div>
+
+    <script>
+        const Flowers = [
+            {
+                name: "Mawar",
+                foto: "img/author.png",
+                desc: "Bunga mawar adalah bunga mawar"
+            },
+            {
+                name: "Melati",
+                foto: "img/author.png",
+                desc: "Bunga Melati adalah bunga Melati"
+            },
+            {
+                name: "Dahlia",
+                foto: "img/author.png",
+                desc: "Bunga Dahlia adalah bunga Dahlia"
+            },
+            {
+                name: "Teratai",
+                foto: "img/author.png",
+                desc: "Bunga Teratai adalah bunga Teratai"
+            },
+            {
+                name: "Melati",
+                foto: "img/author.png",
+                desc: "Bunga Melati adalah bunga Melati"
+            }
+        ]
+
+        Flowers.forEach(anggota => {
+            const newBtn = document.createElement("button");
+            newBtn.setAttribute("class", "kopi");
+            newBtn.textContent = (anggota.name)
+            const kembali = document.getElementById("back");
+            kembali.parentElement.insertBefore(newBtn, kembali.nextSibling);
+            const body = document.getElementsByTagName("body")[0];
+            // body.addEventListener("click", () => alert("ok"))
+            body.appendChild(newBtn).addEventListener("click", () => {
+                const induk = document.getElementById("container");
+
+                // induk.addEventListener("click", () => alert("ok"))
+                induk.innerHTML = " ";
+                const title = document.createElement("h1");
+                title.textContent = (anggota.name);
+                induk.appendChild(title);
+
+                const desc = document.createElement("p");
+                desc.textContent = (anggota.desc);
+                induk.appendChild(desc);
+
+                const newImg = document.createElement("img");
+                newImg.setAttribute("src", anggota.foto);
+                induk.appendChild(newImg);
+
+            })
+        })
+
+
+
+        const btn = document.getElementById("back");
+        btn.addEventListener("click", () => {
+            history.back();
+        })
+    </script>
+</body>
+
+</html>

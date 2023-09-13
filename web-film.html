@@ -437,113 +437,124 @@
     </div>
 
     <script>
-        const inputFilm = document.getElementById("input-film");
         const searchFilm = document.getElementById("search-film");
+        searchFilm.addEventListener("click", async function () {
+            const inputKeyword = document.getElementById("input-film");
+            const movies = await getMovies(inputKeyword.value);
+            showDataUI(movies)
+            const btnShowDetile = document.getElementsByClassName("show-detile");
+            showDetail(btnShowDetile);
+        })
 
 
-        searchFilm.addEventListener("click", () => {
-
-
-            fetch(`http://www.omdbapi.com/?s=${inputFilm.value}&apikey=aebedaef`)
+        function getMovies(keyword) {
+            return fetch(`http://www.omdbapi.com/?s=${keyword}&apikey=aebedaef`)
                 .then(response => response.json())
-                .then(data => {
-                    const movies = data.Search;
-                    let card = "";
-                    movies.map(movie => {
-                        card += `
+                .then(data => data.Search)
+        }
+
+        function showDataUI(movie) {
+            let card = "";
+            movie.map(data => {
+                card += bluePrintCard(data)
+            });
+            const my_swiper = document.getElementById("my-swiper");
+            my_swiper.style.padding = "1rem";
+            my_swiper.innerHTML = card;
+        }
+
+        function bluePrintCard(m) {
+            return `
                 <swiper-slide>
                     <div class="card">
-                        <img src="${movie.Poster}" alt="">
+                        <img src="${m.Poster}" alt="">
                         <div class="descriptions">
-                            <h1>${movie.Title}</h1>
-                            <h2>${movie.Year}</h2>
-                            <h2>${movie.Type}</h2>
-                            <button class="show-detile" value="${movie.imdbID}">
+                            <h1>${m.Title}</h1>
+                            <h2>${m.Year}</h2>
+                            <h2>${m.Type}</h2>
+                            <button class="show-detile" value="${m.imdbID}">
                                 Show Detile Movie
                             </button>
                         </div>
                     </div>
                 </swiper-slide>
                 `
-                    }); //end map looping
+        }
 
-                    const my_swiper = document.getElementById("my-swiper");
-                    my_swiper.style.padding = "1rem";
-                    my_swiper.innerHTML = card;
+        function showDetail(keyword) {
+            Array.from(keyword).forEach(button => {
+                button.addEventListener("click", function () {
+                    // console.log(this.value);
+                    fetch(`http://www.omdbapi.com/?i=${this.value}&apikey=aebedaef`)
+                        .then(response => response.json())
+                        .then(data => {
+                            let detile = "";
+                            detile += bluePrintShowDetail(data);
 
-
-                    const btnShowDetile = document.getElementsByClassName("show-detile");
-                    Array.from(btnShowDetile).forEach(button => {
-                        button.addEventListener("click", function () {
-                            // console.log(this.value);
-                            fetch(`http://www.omdbapi.com/?i=${this.value}&apikey=aebedaef`)
-                                .then(response => response.json())
-                                .then(data => {
-                                    let detile = "";
-                                    console.log(data.imdbID);
-                                    detile += `
-                                    <h2 class="title-container">Detile</h2>
-                                        <div class="movie-card">
-                                            <div class="container">
-                                                <a href="#"><img src="${data.Poster}" alt="cover"
-                                                        class="cover" /></a>
-                                                <div class="hero">
-                                                    <div class="details">
-                                                        <div class="title1">${data.Title}</div>
-                                                        <div class="title2">${data.Released}</div>
-                                                        
-                                                        <span class="likes">${data.Ratings[0].Value}⭐</span>
-                                                        <span class="likes">${data.Country}</span>
-                                                    </div> <!-- end details -->
-                                                </div> <!-- end hero -->
-                                                <div class="description">
-                                                    <div class="column1">
-                                                        <span class="tag">${data.Genre}</span>
-                                                    </div> <!-- end column1 -->
-                                                    <div class="column2">
-                                                        <h3 class="title">Plot</h3>
-                                                        <p>${data.Plot}</p>
-                                                        <h3 class="title">Actors</h3>
-                                                        <p>${data.Actors}</p>
-                                                    </div> <!-- end column2 -->
-                                            </div> <!-- end description -->
-                                        </div> <!-- end container -->
-                                        </div> <!-- end movie-card -->                                  
-                                        `
-                                    const elementObjeck = document.getElementById("detile");
-                                    elementObjeck.innerHTML = "";
-                                    elementObjeck.innerHTML = detile;
-                                    const bgDetile = document.getElementsByClassName("hero")[0];
-                                    bgDetile.style.backgroundImage = `url("${data.Poster}")`;
-                                })
+                            const elementObjeck = document.getElementById("detile");
+                            elementObjeck.innerHTML = "";
+                            elementObjeck.innerHTML = detile;
+                            const bgDetile = document.getElementsByClassName("hero")[0];
+                            bgDetile.style.backgroundImage = `url("${data.Poster}")`;
                         })
-                    });
-                }) //end data
-
-            const swiperEl = document.querySelector('swiper-container')
-            Object.assign(swiperEl, {
-                slidesPerView: 1,
-                spaceBetween: 10,
-                pagination: {
-                    clickable: true,
-                },
-                breakpoints: {
-                    640: {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                    },
-                    768: {
-                        slidesPerView: 4,
-                        spaceBetween: 40,
-                    },
-                    1024: {
-                        slidesPerView: 5,
-                        spaceBetween: 50,
-                    },
-                },
+                })
             });
-            swiperEl.initialize();
-        })
+        }
+
+        function bluePrintShowDetail(keyword) {
+            return `
+                    <h2 class="title-container">Detile</h2>
+                        <div class="movie-card">
+                            <div class="container">
+                                <a href="#"><img src="${keyword.Poster}" alt="cover" class="cover" /></a>
+                                <div class="hero">
+                                    <div class="details">
+                                        <div class="title1">${keyword.Title}</div>
+                                        <div class="title2">${keyword.Released}</div>
+                                        <span class="likes">${keyword.Ratings[0].Value}⭐</span>
+                                        <span class="likes">${keyword.Country}</span>
+                                    </div> <!-- end details -->
+                                </div> <!-- end hero -->
+                                <div class="description">
+                                    <div class="column1">
+                                        <span class="tag">${keyword.Genre}</span>
+                                    </div> <!-- end column1 -->
+                                    <div class="column2">
+                                        <h3 class="title">Plot</h3>
+                                        <p>${keyword.Plot}</p>
+                                        <h3 class="title">Actors</h3>
+                                        <p>${keyword.Actors}</p>
+                                    </div> <!-- end column2 -->
+                            </div> <!-- end description -->
+                        </div> <!-- end container -->
+                        </div> <!-- end movie-card -->                                  
+                    `
+        }
+
+        const swiperEl = document.querySelector('swiper-container')
+        Object.assign(swiperEl, {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            pagination: {
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 4,
+                    spaceBetween: 40,
+                },
+                1024: {
+                    slidesPerView: 5,
+                    spaceBetween: 50,
+                },
+            },
+        });
+        swiperEl.initialize();
+
     </script>
 </body>
 

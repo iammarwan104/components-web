@@ -7,6 +7,8 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
     <title>Nonton Film</title>
     <style>
+        @import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
+
         html,
         body {
             position: relative;
@@ -154,10 +156,7 @@
         }
 
 
-        /* style element Review */
-        @import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
-
-        @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+        /* @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css); */
 
         * {
             box-sizing: border-box;
@@ -449,8 +448,22 @@
 
         function getMovies(keyword) {
             return fetch(`http://www.omdbapi.com/?s=${keyword}&apikey=aebedaef`)
-                .then(response => response.json())
-                .then(data => data.Search)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.StatusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.Response === "False") {
+                        throw new Error(data.Error);
+                    }
+                    return data.Search
+                })
+                .catch(err => {
+                    console.log('Ada kesalahan dalam mengambil data:', err);
+                    alert(err);
+                })
         }
 
         function showDataUI(movie) {
@@ -528,7 +541,7 @@
                             </div> <!-- end description -->
                         </div> <!-- end container -->
                         </div> <!-- end movie-card -->                                  
-                    `
+                    `;
         }
 
         const swiperEl = document.querySelector('swiper-container')

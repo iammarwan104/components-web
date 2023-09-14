@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<form action="" id="form1">
+    <input type="text" id="input1" maxlength="10">
+    <p id="p1"></p>
+    <input type="text" id="input2" value="Marwan">
+    <input type="text" id="input3">
+    <input type="text" id="input4">
+    <button type="submit" id="submit" disabled>Submit</button>
+</form>
+
+<script>
+    const form1 = document.getElementById("form1");
+    const input1 = document.getElementById("input1");
+    const notification = document.getElementById("p1");
+    // EVENT ON FOCUS
+    // ketika user menginputkan sesuatu dengan otomati sistem akan menampilkan
+    // text jumlah karakter yang telah digunakan,
+    // warna teks berwarna orange ketika karakter digunakan 50% dan
+    // text berwarna merah ketika karekter digunakan 100%,
+    // text informasi akan hilang ketika kursor tidak melakukan fokus pada
+    // inputan ini 
+    input1.addEventListener("focus", () => {
+        notification.style.visibility = "visible";
+        notification.textContent = `Jumlah karakter yang digunakan${input1.maxLength - input1.value.length}`;
+        input1.addEventListener("input", () => {
+            notification.textContent = `Jumlah karakter yang digunakan ${input1.maxLength - input1.value.length}`;
+            if (input1.value.length === 10) {
+                notification.style.color = "red";
+            } else if (input1.value.length >= 5) {
+                notification.style.color = "orange";
+            } else {
+                notification.style.color = "black";
+            }
+        })
+    })
+    input1.addEventListener("blur", () => {
+        notification.style.visibility = "hidden";
+    })
+
+    // EVENT onCopy
+    // sistem akan menampilkan pop up alert jika user melakukan copy
+    const input2 = document.getElementById("input2");
+    input2.addEventListener("copy", () => {
+        alert("anda telah mencopy sesuatu");
+    })
+
+    // EVENT onPaste
+    // sistem akan menampilkan pop up alert jika user melakukan paste
+    const input3 = document.getElementById("input3");
+    input3.addEventListener("paste", () => {
+        alert("anda telah menpaste sesuatu");
+    })
+
+    // EVENT INPUT
+    // tombol submit akan aktif ketika user menginput dengan bernar
+    const input4 = document.getElementById("input4");
+    const submit = document.getElementById("submit");
+    input4.addEventListener("input", () => {
+        if (input4.value === "KOPI") {
+            submit.removeAttribute("disabled")
+        } else {
+            submit.setAttribute("disabled", "")
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
+    <title>Nonton Film</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
+
+        html,
+        body {
+            position: relative;
+            height: 100%;
+        }
+
+        body {
+            background: #eee;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #000;
+            margin: 0;
+            padding: 0;
+        }
+
+        swiper-container {
+            width: 100vw;
+            height: auto;
+            /* padding: 1rem; */
+            background-color: dodgerblue;
+        }
+
+        swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            width: auto;
+            height: 70%;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .trending {
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+
+        /* CARD STYLE */
+        .card {
+            flex: 1;
+            flex-basis: 300px;
+            flex-grow: 0;
+            height: 440px;
+            width: 450px;
+            background: #fff;
+            border: 2px solid #fff;
+            box-shadow: 0px 4px 7px rgba(0, 0, 0, .5);
+            cursor: pointer;
+            transition: all .5s cubic-bezier(.8, .5, .2, 1.4);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            transition: all .5s cubic-bezier(.8, .5, .2, 1.4);
+        }
+
+        .descriptions {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background-color: rgba(255, 255, 255, .7);
+            width: 100%;
+            height: 100%;
+            transition: all .7s ease-in-out;
+            padding: 20px;
+            box-sizing: border-box;
+            clip-path: circle(0% at 100% 100%);
+        }
+
+        .card:hover .descriptions {
+            left: 0px;
+            transition: all .7s ease-in-out;
+            clip-path: circle(75%);
+        }
+
+        .card:hover {
+            transition: all .5s cubic-bezier(.8, .5, .2, 1.4);
+            box-shadow: 0px 2px 3px rgba(0, 0, 0, .3);
+            transform: scale(.97);
+        }
+
+        .card:hover img {
+            transition: all .5s cubic-bezier(.8, .5, .2, 1.4);
+            transform: scale(1.6) rotate(20deg);
+            filter: blur(3px);
+        }
+
+        .card h1 {
+            color: #ff3838;
+            letter-spacing: 1px;
+            margin: 0px;
+        }
+
+        .card p {
+            line-height: 24px;
+            height: 70%;
+        }
+
+        .card button {
+            width: fit-content;
+            height: 40px;
+            cursor: pointer;
+            border-style: none;
+            background-color: #ff3838;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            box-shadow: 0px 2px 3px rgba(0, 0, 0, .4);
+            transition: all .5s ease-in-out;
+        }
+
+        .card button:hover {
+            transform: scale(.95) translateX(-5px);
+            transition: all .5s ease-in-out;
+        }
+
+        .container-search {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        #input-film {
+            font-size: 14px;
+            padding: .4rem;
+            width: 60%;
+        }
+
+        #search-film {
+            font-size: 14px;
+            padding: .4rem;
+        }
+
+
+        /* @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css); */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+            color: #5C7FB8
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .movie-card {
+            font: 14px/22px "Lato", Arial, sans-serif;
+            color: #A9A8A3;
+            padding: 40px 0;
+        }
+
+        .container {
+            margin: 0 auto;
+            width: 780px;
+            height: 640px;
+            background: #F0F0ED;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .hero {
+            height: 342px;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            background-size: cover;
+            background-position-y: -5rem;
+        }
+
+        .cover {
+            position: absolute;
+            top: 160px;
+            left: 20px;
+            z-index: 2;
+            width: 200px;
+        }
+
+        .details {
+
+            padding: 190px 0 0 280px;
+
+
+            .title1 {
+                color: white;
+                font-size: 40px;
+                line-height: 2rem;
+                margin-bottom: 13px;
+                position: relative;
+
+                span {
+                    position: absolute;
+                    top: 3px;
+                    margin-left: 12px;
+                    background: #C4AF3D;
+                    border-radius: 5px;
+                    color: #544C21;
+                    font-size: 14px;
+                    line-height: 1rem;
+                    padding: 0px 4px;
+
+                }
+            }
+
+            .title2 {
+                color: whitesmoke;
+                font-size: 23px;
+                font-weight: 300;
+                margin-bottom: 15px;
+            }
+
+
+            .likes {
+                margin-left: 24px;
+                font-size: 16px;
+                font-weight: bold;
+                color: whitesmoke;
+            }
+
+        }
+
+        .description {
+
+            bottom: 0px;
+            height: 200px;
+            font-size: 16px;
+            line-height: 26px;
+            color: #B1B0AC;
+
+        }
+
+        .column1 {
+            padding-left: 50px;
+            padding-top: 120px;
+            width: 220px;
+            float: left;
+            text-align: center;
+        }
+
+        .tag {
+            background: white;
+            border-radius: 10px;
+            padding: 3px 8px;
+            font-size: 14px;
+            margin-right: 4px;
+            line-height: 35px;
+            color: rgb(41, 41, 41);
+        }
+
+
+        .column2 {
+            padding-left: 41px;
+            padding-top: 30px;
+            margin-left: 20px;
+            width: 480px;
+            float: left;
+        }
+
+        .column2 .title {
+            color: black;
+            margin-bottom: .4rem;
+        }
+
+        .column2 p {
+            color: rgb(49, 49, 49);
+        }
+
+        /* //star rating stuff via: https://codepen.io/jamesbarnett/pen/vlpkh/ */
+
+        fieldset,
+        label {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ***** Style Star Rating Widget **** */
+
+        .rating {
+            border: none;
+            float: left;
+        }
+
+        .rating>input {
+            display: none;
+        }
+
+        .rating>label:before {
+            margin: 5px;
+            margin-top: 0;
+            font-size: 1em;
+            font-family: FontAwesome;
+            display: inline-block;
+            content: "\f005";
+        }
+
+        .rating>.half:before {
+            content: "\f089";
+            position: absolute;
+        }
+
+        .rating>label {
+            color: #ddd;
+            float: right;
+        }
+
+        /* **** CSS Magic to Highlight Stars on Hover **** */
+
+        .rating>input:checked~label,
+        /* show gold star when clicked */
+        .rating:not(:checked)>label:hover,
+        /* hover current star */
+        .rating:not(:checked)>label:hover~label {
+            color: #FFD700;
+        }
+
+        /* hover previous stars in list */
+
+        .rating>input:checked+label:hover,
+        /* hover current star when changing rating */
+        .rating>input:checked~label:hover,
+        .rating>label:hover~input:checked~label,
+        /* lighten current selection */
+        .rating>input:checked~label:hover~label {
+            color: #FFED85;
+        }
+
+        /* //tooltip stuff via: https://codepen.io/peiche/pen/JaftA */
+
+        a[data-tooltip] {
+            position: relative;
+        }
+
+        a[data-tooltip]::before,
+        a[data-tooltip]::after {
+            position: absolute;
+            display: none;
+            opacity: 0.85;
+        }
+
+        a[data-tooltip]::before {
+            /*             
+* using data-tooltip instead of title so we 
+* don't have the real tooltip overlapping
+*/
+            content: attr(data-tooltip);
+            background: #000;
+            color: #fff;
+            font-size: 13px;
+            padding: 5px;
+            border-radius: 5px;
+            /* we don't want the text to wrap */
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        a[data-tooltip]::after {
+            width: 0;
+            height: 0;
+            border: 6px solid transparent;
+            content: '';
+        }
+
+        a[data-tooltip]:hover::before,
+        a[data-tooltip]:hover::after {
+            display: block;
+        }
+
+        /** positioning **/
+
+        /* top tooltip */
+        a[data-tooltip][data-placement="top"]::before {
+            bottom: 100%;
+            left: 0;
+            margin-bottom: 40px;
+        }
+
+        a[data-tooltip][data-placement="top"]::after {
+            border-top-color: #000;
+            border-bottom: none;
+            bottom: 50px;
+            left: 20px;
+            margin-bottom: 4px;
+        }
+
+        .title-container {
+            text-align: center;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-search">
+        <input type="search" name="input-film" id="input-film">
+        <button id="search-film">Search</button>
+    </div>
+
+    <div class="trending">
+        <h2 class="title-container">Result</h2>
+        <swiper-container class="mySwiper" id="my-swiper" init="false">
+        </swiper-container>
+    </div>
+
+    <div class="detile-container">
+        <div id="detile"></div>
+    </div>
+
+    <script>
+        const searchFilm = document.getElementById("search-film");
+        searchFilm.addEventListener("click", async function () {
+            const inputKeyword = document.getElementById("input-film");
+            const movies = await getMovies(inputKeyword.value);
+            showDataUI(movies)
+            const btnShowDetile = document.getElementsByClassName("show-detile");
+            showDetail(btnShowDetile);
+        })
+
+
+        function getMovies(keyword) {
+            return fetch(`http://www.omdbapi.com/?s=${keyword}&apikey=aebedaef`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.StatusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.Response === "False") {
+                        throw new Error(data.Error);
+                    }
+                    return data.Search
+                })
+                .catch(err => {
+                    console.log('Ada kesalahan dalam mengambil data:', err);
+                    alert(err);
+                })
+        }
+
+        function showDataUI(movie) {
+            let card = "";
+            movie.map(data => {
+                card += bluePrintCard(data)
+            });
+            const my_swiper = document.getElementById("my-swiper");
+            my_swiper.style.padding = "1rem";
+            my_swiper.innerHTML = card;
+        }
+
+        function bluePrintCard(m) {
+            return `
+                <swiper-slide>
+                    <div class="card">
+                        <img src="${m.Poster}" alt="">
+                        <div class="descriptions">
+                            <h1>${m.Title}</h1>
+                            <h2>${m.Year}</h2>
+                            <h2>${m.Type}</h2>
+                            <button class="show-detile" value="${m.imdbID}">
+                                Show Detile Movie
+                            </button>
+                        </div>
+                    </div>
+                </swiper-slide>
+                `
+        }
+
+        function showDetail(keyword) {
+            Array.from(keyword).forEach(button => {
+                button.addEventListener("click", function () {
+                    // console.log(this.value);
+                    fetch(`http://www.omdbapi.com/?i=${this.value}&apikey=aebedaef`)
+                        .then(response => response.json())
+                        .then(data => {
+                            let detile = "";
+                            detile += bluePrintShowDetail(data);
+
+                            const elementObjeck = document.getElementById("detile");
+                            elementObjeck.innerHTML = "";
+                            elementObjeck.innerHTML = detile;
+                            const bgDetile = document.getElementsByClassName("hero")[0];
+                            bgDetile.style.backgroundImage = `url("${data.Poster}")`;
+                        })
+                })
+            });
+        }
+
+        function bluePrintShowDetail(keyword) {
+            return `
+                    <h2 class="title-container">Detile</h2>
+                        <div class="movie-card">
+                            <div class="container">
+                                <a href="#"><img src="${keyword.Poster}" alt="cover" class="cover" /></a>
+                                <div class="hero">
+                                    <div class="details">
+                                        <div class="title1">${keyword.Title}</div>
+                                        <div class="title2">${keyword.Released}</div>
+                                        <span class="likes">${keyword.Ratings[0].Value}⭐</span>
+                                        <span class="likes">${keyword.Country}</span>
+                                    </div> <!-- end details -->
+                                </div> <!-- end hero -->
+                                <div class="description">
+                                    <div class="column1">
+                                        <span class="tag">${keyword.Genre}</span>
+                                    </div> <!-- end column1 -->
+                                    <div class="column2">
+                                        <h3 class="title">Plot</h3>
+                                        <p>${keyword.Plot}</p>
+                                        <h3 class="title">Actors</h3>
+                                        <p>${keyword.Actors}</p>
+                                    </div> <!-- end column2 -->
+                            </div> <!-- end description -->
+                        </div> <!-- end container -->
+                        </div> <!-- end movie-card -->                                  
+                    `;
+        }
+
+        const swiperEl = document.querySelector('swiper-container')
+        Object.assign(swiperEl, {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            pagination: {
+                clickable: true,
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 4,
+                    spaceBetween: 40,
+                },
+                1024: {
+                    slidesPerView: 5,
+                    spaceBetween: 50,
+                },
+            },
+        });
+        swiperEl.initialize();
+
+    </script>
+</body>
+
+</html>
